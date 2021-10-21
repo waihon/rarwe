@@ -54,3 +54,14 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+
+## Terminal Commands
+
+### 2. Ember CLI
+
+* `node -v`
+* `npm install -g ember-cli`
+* `ember --version`
+* `ember new rarwe --no-welcome`
+* `cd rarwe`
+* `ember server`
