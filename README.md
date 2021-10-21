@@ -65,3 +65,9 @@ Specify what it takes to deploy your app.
 * `ember new rarwe --no-welcome`
 * `cd rarwe`
 * `ember server`
+
+### 3. Templates and Data Bindings
+
+* `npm install -D tailwindcss`
+* `npm install -D ember-cli-postcss`
+* `ember server`
