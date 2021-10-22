@@ -71,3 +71,8 @@ Specify what it takes to deploy your app.
 * `npm install -D tailwindcss`
 * `npm install -D ember-cli-postcss`
 * `ember server`
+
+### 4. Routing
+
+* `ember g route bands`
+* `ember g route songs`
