@@ -1,1 +1,3 @@
-{{yield}}
+{{#each this.stars as |star|}}
+  {{if star.full "X" "O"}}
+{{/each}}
