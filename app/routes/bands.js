@@ -63,6 +63,12 @@ export default class BandsRoute extends Route {
       songs: [pretender],
     });
 
-    return [ledZeppelin, pearlJam, fooFighters];
+    let newRockers = new Band({
+      id: 'new-rockers',
+      name: 'New Rockers',
+      songs: [],
+    })
+
+    return [ledZeppelin, pearlJam, fooFighters, newRockers];
   }
 }
