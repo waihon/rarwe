@@ -67,7 +67,7 @@ export default class BandsRoute extends Route {
       id: 'new-rockers',
       name: 'New Rockers',
       songs: [],
-    })
+    });
 
     return [ledZeppelin, pearlJam, fooFighters, newRockers];
   }
