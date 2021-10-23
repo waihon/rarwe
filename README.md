@@ -76,3 +76,10 @@ Specify what it takes to deploy your app.
 
 * `ember g route bands`
 * `ember g route songs`
+
+### 5.  Nestered Routes
+
+* `ember g route bands/band --path=':id'`
+* `ember g template bands/index`
+* `ember g template bands/band/songs`
+* `ember destroy route songs`
