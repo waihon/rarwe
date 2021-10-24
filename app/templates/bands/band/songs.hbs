@@ -6,7 +6,22 @@
       <li class="mb-2">
         {{song.title}}
         <span class="float-right">
-          <StarRating @rating={{song.rating}} />
+          <StarRating
+            {{!-- Below uni-directional flow has been dubbed "Data Down Actions Up" (or DDAU, --}}
+            {{!-- for short) and is one of the best practices that becomes second nature to --}}
+            {{!-- Ember developers after a while. It establishes a data folow that is easy to --}}
+            {{!-- debug (at least definitely easier than if we had two-way data bindings and --}}
+            {{!-- we changed passed-in values willy-nilly) and gives flexibility to the --}}
+            {{!-- component that leverages it. --}}
+
+            {{!-- As the song's rating is updated, the change of the @rating argument will --}}
+            {{!-- trigger an update of the component's stars property, and so the component's --}}
+            {{!-- template will get re-rendered with the appropriate number of full stars. --}}
+            @rating={{song.rating}}
+
+            {{!-- The song's rating will be set to the value the function is called with. --}}
+            @onUpdate={{set song "rating"}}
+          />
         </span>
       </li>
     {{/each}}
