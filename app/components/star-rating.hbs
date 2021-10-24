@@ -2,10 +2,14 @@
   {{yield this.stars}}
 {{else}}
   {{#each this.stars as |star|}}
-    <FaIcon
-      @icon="star"
-      {{!-- fas (solid style), far (regular style) --}}
-      @prefix={{if star.full "fas" "far"}}
-    />
+    {{!-- The event handler set up by `on` will be called with fn arguments first, --}}
+    {{!-- which can be an arbitrary number, and the DOM event as the last parameter. --}}
+    <button type="button" {{on "click" (fn @onUpdate star.rating)}}>
+      <FaIcon
+        @icon="star"
+        {{!-- fas (solid style), far (regular style) --}}
+        @prefix={{if star.full "fas" "far"}}
+      />
+    </button>
   {{/each}}
 {{/if}}
