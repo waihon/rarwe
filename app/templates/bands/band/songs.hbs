@@ -31,3 +31,41 @@
     The band has no songs yet.
   </p>
 {{/if}}
+{{#if this.showAddSong}}
+  <div class="flex justify-center mt-2">
+    <button
+      type="button"
+      class="px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white hover:bg-purple-500 focus:outline-none"
+      {{on "click" (set this "showAddSong" false)}}
+    >
+      Add song
+    </button>
+  </div>
+{{else}}
+  <div class="mt-6 flex">
+    {{!-- The sr-only class is used to hide information that is intended only for screen --}}
+    {{!-- readers from the layout of a rendered page. If you do not include a label for --}}
+    {{!-- every input, screen readers may have trouble with the forms. For such inline forms, --}}
+    {{!-- you can hide labels with the sr-only class. --}}
+    <label for="title" class="sr-only">Title</label>
+    <input
+      type="text"
+      id="title"
+      class="text-gray-800 bg-white rounded-md py-2 px-4"
+      placeholder="Song Title"
+      value={{this.title}}
+    />
+    <button
+      type="button"
+      class="ml-4 px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      class="ml-2 px-4 p-2 rounded bg-white border border-bg-purple-600 shadow-md text-purple-600 hover:shadow-lg"
+    >
+      Cancel
+    </button>
+  </div>
+{{/if}}
