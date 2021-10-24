@@ -6,7 +6,11 @@
       <li class="mb-2">
         {{song.title}}
         <span class="float-right">
-          <StarRating @rating={{song.rating}} />
+          <StarRating @rating={{song.rating}} as |stars|>
+            {{#each stars as |star|}}
+              {{if star.full 'X' 'O'}}
+            {{/each}}
+          </StarRating>
         </span>
       </li>
     {{/each}}
