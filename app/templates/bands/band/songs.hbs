@@ -54,16 +54,19 @@
       class="text-gray-800 bg-white rounded-md py-2 px-4"
       placeholder="Song Title"
       value={{this.title}}
+      {{on "input" this.updateTitle}}
     />
     <button
       type="button"
       class="ml-4 px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white"
+      {{on "click" this.saveSong}}
     >
       Save
     </button>
     <button
       type="button"
       class="ml-2 px-4 p-2 rounded bg-white border border-bg-purple-600 shadow-md text-purple-600 hover:shadow-lg"
+      {{on "click" this.cancel}}
     >
       Cancel
     </button>
