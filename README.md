@@ -83,3 +83,12 @@ Specify what it takes to deploy your app.
 * `ember g template bands/index`
 * `ember g template bands/band/songs`
 * `ember destroy route songs`
+
+### 6. Components
+
+* `ember g component star-rating --with-component-class`
+* `ember i @fortawesome/ember-fontawesome`
+* `npm install -D @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons`
+* `ember server`
+* `ember i ember-set-helper`
+* `ember server`
