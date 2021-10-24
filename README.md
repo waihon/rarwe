@@ -92,3 +92,9 @@ Specify what it takes to deploy your app.
 * `ember server`
 * `ember i ember-set-helper`
 * `ember server`
+
+### 7. Controllers
+
+* `ember g controller bands/band/songs`
+* `ember g route bands/new`
+* `ember g controller bands/new`
