@@ -1,71 +1,26 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import Band from 'rarwe/models/band';
-import Song from 'rarwe/models/song';
+// The ember-fetch package (installed by default in all new Ember apps)
+// adds a wrapper around fetch and this is what we import below.
+import fetch from 'fetch';
 
 export default class BandsRoute extends Route {
   @service catalog;
 
-  model() {
-    let blackDog = new Song({
-      title: 'Black Dong',
-      rating: 3,
-    });
-
-    let yellowLedbetter = new Song({
-      title: 'Yellow Ledbetter',
-      rating: 4,
-    });
-
-    let pretender = new Song({
-      title: 'The Pretender',
-      rating: 2,
-    });
-
-    let daughter = new Song({
-      title: 'Daughter',
-      rating: 5,
-    });
-
-    let ledZeppelin = new Band({
-      id: 'led-zeppelin',
-      name: 'Led Zeppelin',
-      songs: [blackDog],
-    });
-
-    let pearlJam = new Band({
-      id: 'pearl-jam',
-      name: 'Pearl Jam',
-      songs: [yellowLedbetter, daughter],
-    });
-
-    let fooFighters = new Band({
-      id: 'foo-fighters',
-      name: 'Foo Fighters',
-      songs: [pretender],
-    });
-
-    let newRockers = new Band({
-      id: 'new-rockers',
-      name: 'New Rockers',
-      songs: [],
-    });
-  
-    blackDog.band = ledZeppelin;
-    yellowLedbetter.band = pearlJam;
-    daughter.band = pearlJam;
-    pretender.band = fooFighters;
-
-    this.catalog.add('song', blackDog);
-    this.catalog.add('song', yellowLedbetter);
-    this.catalog.add('song', daughter);
-    this.catalog.add('song', pretender);
-
-    this.catalog.add('band', ledZeppelin);
-    this.catalog.add('band', pearlJam);
-    this.catalog.add('band', fooFighters);
-    this.catalog.add('band', newRockers);;
-
+  async model() {
+    // The API is available at https://json-api.rockandrollwithemberjs.com,
+    // and it follows JSON:API convention which has a top-level data attribute.
+    // We don't have to bother prepending the host because the proxy option
+    // we launched Ember server with takes care of that.
+    // (ember s --proxy=https://json-api.rockandrollwithemberjs.com)
+    let response = await fetch('/bands');
+    let json = await response.json();
+    for (let item of json.data) {
+      let { id, attributes } = item;
+      let record = new Band({ id, ...attributes });
+      this.catalog.add('band', record);
+    }
     return this.catalog.bands;
   }
 }
