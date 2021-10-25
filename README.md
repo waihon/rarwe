@@ -104,3 +104,8 @@ Specify what it takes to deploy your app.
 * `ember g service catalog`
 * `ember i tracked-built-ins`
 * `ember s`
+
+### 9. Talking to a Back-end
+
+* `ember s --proxy=http://json-api.rockandrollwithemberjs.com`
+  (http is used instead of https as the latter is not compatible with localhost)
