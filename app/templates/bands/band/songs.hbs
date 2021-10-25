@@ -20,7 +20,7 @@
             @rating={{song.rating}}
 
             {{!-- The song's rating will be set to the value the function is called with. --}}
-            @onUpdate={{set song "rating"}}
+            @onUpdate={{fn this.updateRating song}}
           />
         </span>
       </li>
