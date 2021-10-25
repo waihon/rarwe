@@ -11,7 +11,7 @@ export default class CatalogService extends Service {
   }
 
   add(type, record) {
-    let collection = type == 'band' ? this.storage.bands : this.storage.songs;
+    let collection = type === 'band' ? this.storage.bands : this.storage.songs;
     collection.push(record);
   }
 
@@ -21,5 +21,10 @@ export default class CatalogService extends Service {
 
   get songs() {
     return this.storage.songs;
+  }
+
+  find(type, filterFn) {
+    let collection = type === 'band' ? this.storage.bands : this.storage.songs;
+    return collection.find(filterFn);
   }
 }
