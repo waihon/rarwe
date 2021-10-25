@@ -17,8 +17,17 @@ export default class BandsRoute extends Route {
     let response = await fetch('/bands');
     let json = await response.json();
     for (let item of json.data) {
-      let { id, attributes } = item;
-      let record = new Band({ id, ...attributes });
+      let { id, attributes, relationships } = item;
+      // {} relationships
+      // |_ {} songs
+      //    |_ {} links
+      //       |_ self: "http://json-api.rockandrollwithemberjs.com/bands/pearl-jam/relationships/songs"
+      //       |_ related: "http://json-api.rockandrollwithemberjs.com/bands/pearl-jam/songs"
+      let rels = {};
+      for (let relationshipName in relationships) {
+        rels[relationshipName] = relationships[relationshipName].links.related;
+      }
+      let record = new Band({ id, ...attributes }, rels);
       this.catalog.add('band', record);
     }
     return this.catalog.bands;
