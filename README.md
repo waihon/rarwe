@@ -98,3 +98,9 @@ Specify what it takes to deploy your app.
 * `ember g controller bands/band/songs`
 * `ember g route bands/new`
 * `ember g controller bands/new`
+
+### 8. Building a Catalog
+
+* `ember g service catalog`
+* `ember i tracked-built-ins`
+* `ember s`
