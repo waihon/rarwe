@@ -9,11 +9,11 @@ export default class BandsRoute extends Route {
   @service catalog;
 
   async model() {
-    // The API is available at https://json-api.rockandrollwithemberjs.com,
+    // The API is available at http://json-api.rockandrollwithemberjs.com,
     // and it follows JSON:API convention which has a top-level data attribute.
     // We don't have to bother prepending the host because the proxy option
     // we launched Ember server with takes care of that.
-    // (ember s --proxy=https://json-api.rockandrollwithemberjs.com)
+    // (ember s --proxy=http://json-api.rockandrollwithemberjs.com)
     let response = await fetch('/bands');
     let json = await response.json();
     for (let item of json.data) {
