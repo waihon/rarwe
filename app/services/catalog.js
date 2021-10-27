@@ -34,21 +34,34 @@ export default class CatalogService extends Service {
     this.storage.songs = tracked([]);
   }
 
-  async fetchAll() {
+  async fetchAll(type) {
     // The API is available at http://json-api.rockandrollwithemberjs.com,
     // and it follows JSON:API convention which has a top-level data attribute.
     // We don't have to bother prepending the host because the proxy option
     // we launched Ember server with takes care of that.
     // (ember s --proxy=http://json-api.rockandrollwithemberjs.com)
-    let response = await fetch('/bands');
-    let json = await response.json();
-    for (let item of json.data) {
-      let { id, attributes, relationships } = item;
-      let rels = extractRelationships(relationships);
-      let record = new Band({ id, ...attributes }, rels);
-      this.add('band', record);
+    if (type === 'bands') {
+      let response = await fetch('/bands');
+      let json = await response.json();
+      for (let item of json.data) {
+        let { id, attributes, relationships } = item;
+        let rels = extractRelationships(relationships);
+        let record = new Band({ id, ...attributes }, rels);
+        this.add('band', record);
+      }
+      return this.bands;
     }
-    return this.bands;
+    if (type === 'songs') {
+      let response = await fetch('/songs');
+      let json = await response.json();
+      for (item of json.data) {
+        let { id, attributes, relationships } = item;
+        let rels = extractRelationships(relationships);
+        let record = new Song({ id, ...attributes }, rels);
+        this.add('song', record);
+      }
+      return this.songs;
+    }
   }
 
   add(type, record) {

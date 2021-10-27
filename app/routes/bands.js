@@ -5,6 +5,6 @@ export default class BandsRoute extends Route {
   @service catalog;
 
   model() {
-    return this.catalog.fetchAll();
+    return this.catalog.fetchAll('bands');
   }
 }
