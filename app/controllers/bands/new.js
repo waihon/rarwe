@@ -37,9 +37,13 @@ export default class BandsNewController extends Controller {
     let json = await response.json();
     // Creating the id of the band has now become the responsibility of the
     // backend: the response contains a top-level id and the attributes.
-    let { id, attributes } = json.data;
-    let record = new Band({ id, ...attributes });
+    let { id, attributes, relationships } = json.data;
+    let rels = [];
+    for (let relationshipName in relationships) {
+      rels[relationshipName] = relationships[relationshipName].links.related;
+    }
+    let record = new Band({ id, ...attributes }, rels);
     this.catalog.add('band', record);
-    this.router.transitionTo('bands.band.songs',id);
+    this.router.transitionTo('bands.band.songs', id);
   }
 }
