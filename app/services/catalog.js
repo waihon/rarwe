@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import Band from 'rarwe/models/band';
+import Song from 'rarwe/models/song';
 import { tracked } from 'tracked-built-ins';
 // The ember-fetch package (installed by default in all new Ember apps)
 // adds a wrapper around fetch and this is what we import below.
