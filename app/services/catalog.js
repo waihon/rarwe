@@ -65,7 +65,7 @@ export default class CatalogService extends Service {
   }
 
   load(json) {
-    return this._loadResource(json.data)
+    return this._loadResource(json.data);
   }
 
   _loadResource(item) {
