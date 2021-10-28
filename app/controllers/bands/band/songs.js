@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
 
 export default class BandsBandSongsController extends Controller {
   @tracked showAddSong = true;
@@ -18,23 +17,9 @@ export default class BandsBandSongsController extends Controller {
   @action
   async updateRating(song, rating) {
     song.rating = rating;
-    let payload = {
-      data: {
-        id: song.id,
-        type: 'songs',
-        // As this is a PATCH request, we only need to send the changes: the new rating
-        attributes: {
-          rating
-        }
-      }
-    };
-    await fetch(`/songs/${song.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/vnd.api+json'
-      },
-      body: JSON.stringify(payload)
-    });
+    // As this is a PATCH request, we only need to send the changes: the new rating
+    // { rating } is a shorthand for { rating: rating }
+    this.catalog.update('song', song, { rating });
   }
 
   @action
