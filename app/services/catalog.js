@@ -5,6 +5,7 @@ import { tracked } from 'tracked-built-ins';
 // The ember-fetch package (installed by default in all new Ember apps)
 // adds a wrapper around fetch and this is what we import below.
 import fetch from 'fetch';
+import { isArray } from '@ember/array';
 
 function extractRelationships(object) {
   let relationships = {};
@@ -83,6 +84,23 @@ export default class CatalogService extends Service {
       this.add('song', record);
     }
     return record;
+  }
+
+  async fetchRelated(record, relationship) {
+    // This method does 2 things.
+    // First, it requests the backend for the related records and loads
+    // them to the storage of the catalog.
+    // Second, it assigns the created, related records to a "relationship"
+    // property, like to songs property of Band model instances.
+    let url = record.relationships[relationship];
+    let response = await fetch(url);
+    let json = await response.json();
+    if (isArray(json.data)) {
+      record[relationship] = this.loadAll(json);
+    } else {
+      record[relationship] = this.load(json);
+    }
+    return record[relationship];
   }
 
   async create(type, attributes, relationships = {}) {
