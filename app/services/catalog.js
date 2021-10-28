@@ -62,20 +62,47 @@ export default class CatalogService extends Service {
     return records;
   }
 
+  load(json) {
+    return this._loadResource(json.data)
+  }
+
   _loadResource(item) {
     let record;
+    // Creating the id of a band or song has now become the responsibility of
+    // the backend: the response contains a top-level id and the attributes.
     let { id, type, attributes, relationships } = item;
     if (type === 'bands') {
       let rels = extractRelationships(relationships);
-      let record = new Band({ id, ...attributes }, rels);
+      record = new Band({ id, ...attributes }, rels);
       this.add('band', record);
     }
     if (type === 'songs') {
       let rels = extractRelationships(relationships);
-      let record = new Song({ id, ...attributes }, rels);
+      record = new Song({ id, ...attributes }, rels);
       this.add('song', record);
     }
     return record;
+  }
+
+  async create(type, attributes, relationships = {}) {
+    // The payload must be a JSON:API representation of the resource to be
+    // created: i.e. data with type and attributes.
+    let payload = {
+      data: {
+        type: type === 'band' ? 'bands' : 'songs',
+        attributes,
+        relationships,
+      },
+    };
+    let response = await fetch(type === 'band' ? '/bands' : '/songs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+      },
+      body: JSON.stringify(payload),
+    });
+    let json = await response.json();
+    return this.load(json);
   }
 
   add(type, record) {
