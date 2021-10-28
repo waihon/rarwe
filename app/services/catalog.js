@@ -106,6 +106,24 @@ export default class CatalogService extends Service {
     return this.load(json);
   }
 
+  async update(type, record, attributes) {
+    let payload = {
+      data: {
+        id: record.id,
+        type: type === 'band' ? 'bands' : 'songs',
+        attributes,
+      },
+    };
+    let url = type === 'band' ? `/bands/${record.id}` : `/songs/${record.id}`;
+    await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+      },
+      body: JSON.stringify(payload),
+    });
+  }
+
   add(type, record) {
     let collection = type === 'band' ? this.storage.bands : this.storage.songs;
     collection.push(record);
