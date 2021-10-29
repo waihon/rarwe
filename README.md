@@ -110,3 +110,11 @@ Specify what it takes to deploy your app.
 * `ember s --proxy=http://json-api.rockandrollwithemberjs.com`
   (http is used instead of https as the latter is not compatible with localhost)
 * `npm uninstall ember-data`
+
+### 10. Advanced Routing
+
+* `ember g route bands/band/details`
+* `ember g route bands/band/index`
+* `ember g component band-navigation`
+* `ember g component-class band-navigation`
+* `ember g component band-list --with-component-class`
