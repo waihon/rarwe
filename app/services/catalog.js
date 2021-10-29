@@ -144,7 +144,14 @@ export default class CatalogService extends Service {
 
   add(type, record) {
     let collection = type === 'band' ? this.storage.bands : this.storage.songs;
-    collection.push(record);
+    let recordIds = collection.map((record) => record.id);
+    // Make our collections to become what's usually referred to as "identify maps" -
+    // items in the collection are unique on their ids.
+    // Technically, our collections are arays and not maps (which is leass than ideal)
+    // but they implement the idea behid the identify maps just the same.
+    if (!recordIds.includes(record.id)) {
+      collection.push(record);
+    }
   }
 
   get bands() {
