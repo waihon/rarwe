@@ -109,3 +109,4 @@ Specify what it takes to deploy your app.
 
 * `ember s --proxy=http://json-api.rockandrollwithemberjs.com`
   (http is used instead of https as the latter is not compatible with localhost)
+* `npm uninstall ember-data`
