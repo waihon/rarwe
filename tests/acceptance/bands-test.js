@@ -32,17 +32,17 @@ module('Acceptance | bands', function (hooks) {
     this.server.create('band', { name: 'Royal Blood' });
 
     await visit('/');
-    await click('a[href="/bands/new"]')
-    await fillIn('input', 'Caspian');
-    await click('button');
+    await click('[data-test-rr="new-band-button"]')
+    await fillIn('[data-test-rr="new-band-name"]', 'Caspian');
+    await click('[data-test-rr="save-band-button"]');
     // To resolve the intermittent issue of unmatched number of band links, in which
     // by the time the test arrives at checking if there are 2 band links, the new
     // band link hasn't rendered yet, we'll wait for "The band has no songs yet"
     // to be displayed first as part of rendering the empty songs page for the new band,
     // as an indicator that the new band has appeared in the bands list by that time.
-    await waitFor('p.text-center');
+    await waitFor('[data-test-rr="no-songs-text"]');
 
-    let bandLinks = document.querySelectorAll('.mb-2 > a');
+    let bandLinks = document.querySelectorAll('[data-test-rr="band-link"]');
     assert.equal(
       bandLinks.length,
       2,
@@ -51,7 +51,7 @@ module('Acceptance | bands', function (hooks) {
     );
     assert.ok(
       document
-        .querySelector('.border-b-4.border-purple-400')
+        .querySelector('[data-test-rr="songs-nav-item"]')
         .textContent.includes('Songs'),
       'The Songs tab is active'
     );
