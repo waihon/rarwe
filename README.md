@@ -118,3 +118,13 @@ Specify what it takes to deploy your app.
 * `ember g component band-navigation`
 * `ember g component-class band-navigation`
 * `ember g component band-list --with-component-class`
+
+### 11. Testing
+
+* `ember t --server`
+* `ember g acceptance-test bands`
+* `ember install ember-cli-mirage`
+* `ember g mirage-model band`
+* `ember install ember-test-selectors`
+* `ember g component-test star-rating`
+* `ember g service-test catalog`
