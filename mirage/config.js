@@ -34,7 +34,7 @@ export default function () {
     // on the schema.
     // The bands collection is found on schema.bands, songs are on schema.songs.
     return schema.songs.where({ bandId: id });
-  })
+  });
 
   this.post('/bands');
 }

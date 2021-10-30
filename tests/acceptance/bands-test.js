@@ -3,6 +3,8 @@ import { visit, click, fillIn, waitFor } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { getPageTitle } from 'ember-page-title/test-support';
+// To be able to use a custom test helper, we have to import it in our tests.
+import { createBand } from 'rarwe/tests/helpers/custom-helpers';
 
 module('Acceptance | bands', function (hooks) {
   setupApplicationTest(hooks);
@@ -24,16 +26,17 @@ module('Acceptance | bands', function (hooks) {
       .hasText('Radiohead', 'The first band link contains the band name');
     assert
       .dom('[data-test-rr="band-list-item"]:last-child')
-      .hasText('Long Distance Calling', 'The other band link contains the band name');
+      .hasText(
+        'Long Distance Calling',
+        'The other band link contains the band name'
+      );
   });
 
   test('Create a band', async function (assert) {
     this.server.create('band', { name: 'Royal Blood' });
 
     await visit('/');
-    await click('[data-test-rr="new-band-button"]')
-    await fillIn('[data-test-rr="new-band-name"]', 'Caspian');
-    await click('[data-test-rr="save-band-button"]');
+    await createBand('Caspian');
     // To resolve the intermittent issue of unmatched number of band links, in which
     // by the time the test arrives at checking if there are 2 band links, the new
     // band link hasn't rendered yet, we'll wait for "The band has no songs yet"
@@ -43,10 +46,10 @@ module('Acceptance | bands', function (hooks) {
 
     assert
       .dom('[data-test-rr="band-list-item"]')
-      .exists({ count: 2 }, 'A new bank link is rendered');
+      .exists({ count: 2 }, 'A new band link is rendered');
     assert
       .dom('[data-test-rr="band-list-item"]:last-child')
-      .hasText('Caspian', 'The new bank link is rendered as the last item');
+      .hasText('Caspian', 'The new band link is rendered as the last item');
     assert
       .dom('[data-test-rr="songs-nav-item"] > .active')
       .exists('The Songs tab is active');
