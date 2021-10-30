@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | star-rating', function (hooks) {
@@ -37,5 +37,30 @@ module('Integration | Component | star-rating', function (hooks) {
     assert
       .dom('[data-test-rr="empty-star"]')
       .exists({ count: 3 }, 'The right amount of empty stars is rendered');
+  });
+
+  test('Calls onUpdate with the correct value', async function (assert) {
+    this.set('rating', 2);
+    // We don't have to use the action d ecorator to bind the context of our event handler.
+    // As opposed to the "real" app, we run everything in the same context (the context of
+    // the test), so there's no need to.
+    this.set('updateRating', (rating) => {
+      // Every time assert.step is called, it records the argument it was called with.
+      assert.step(`Updated to rating: ${rating}`);
+    });
+
+    await render(hbs`
+      <StarRating
+        @rating={{this.rating}}
+        @onUpdate={{this.updateRating}}
+      />
+    `);
+
+    await click('[data-test-rr="star-rating-button"]:nth-child(4)');
+    // Referring to the assert.step above, we can then verify the order and equality of
+    // the arguments by calling assert.verifySteps and passing the expected values.
+    // Here, we only use it for a single value but it's especially useful when wa want to
+    // check the order of calls.
+    assert.verifySteps(['Updated to rating: 4']);
   });
 });
