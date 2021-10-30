@@ -23,4 +23,10 @@ export default function() {
 
     https://www.ember-cli-mirage.com/docs/route-handlers/shorthands
   */
+
+  // These 2 lines will mock out the network requests the app makes against the back-end.
+  // They are called "shorthand handlers" because you don't have to implement what resposne
+  // should Mirage return for them - it is smart emough to figure that out.
+  this.get('/bands');
+  this.get('/bands/:id');
 }
