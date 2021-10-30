@@ -28,4 +28,13 @@ export default function () {
   // should Mirage return for them - it is smart emough to figure that out.
   this.get('/bands');
   this.get('/bands/:id');
+  this.get('/bands/:id/songs', function (schema, request) {
+    let id = request.params.id;
+    // For each Mirage model that we define, a corresponding collection can be accessed
+    // on the schema.
+    // The bands collection is found on schema.bands, songs are on schema.songs.
+    return schema.songs.where({ bandId: id });
+  })
+
+  this.post('/bands');
 }
