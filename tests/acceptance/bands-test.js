@@ -16,16 +16,15 @@ module('Acceptance | bands', function (hooks) {
     await visit('/');
     assert.equal(getPageTitle(), 'Bands | Rock & Roll with Octane');
 
-    let bandLinks = document.querySelectorAll('.mb-2 > a');
-    assert.equal(bandLinks.length, 2, 'All band links are rendered');
-    assert.ok(
-      bandLinks[0].textContent.includes('Radiohead'),
-      'First band link contains the band name'
-    );
-    assert.ok(
-      bandLinks[1].textContent.includes('Long Distance Calling'),
-      'The other band link contains the band name'
-    );
+    assert
+      .dom('[data-test-rr="band-link"]')
+      .exists({ count: 2 }, 'All band links are rendered');
+    assert
+      .dom('[data-test-rr="band-list-item"]:first-child')
+      .hasText('Radiohead', 'The first band link contains the band name');
+    assert
+      .dom('[data-test-rr="band-list-item"]:last-child')
+      .hasText('Long Distance Calling', 'The other band link contains the band name');
   });
 
   test('Create a band', async function (assert) {
@@ -42,18 +41,14 @@ module('Acceptance | bands', function (hooks) {
     // as an indicator that the new band has appeared in the bands list by that time.
     await waitFor('[data-test-rr="no-songs-text"]');
 
-    let bandLinks = document.querySelectorAll('[data-test-rr="band-link"]');
-    assert.equal(
-      bandLinks.length,
-      2,
-      'All band links are rendered',
-      'A new band link is rendered'
-    );
-    assert.ok(
-      document
-        .querySelector('[data-test-rr="songs-nav-item"]')
-        .textContent.includes('Songs'),
-      'The Songs tab is active'
-    );
+    assert
+      .dom('[data-test-rr="band-list-item"]')
+      .exists({ count: 2 }, 'A new bank link is rendered');
+    assert
+      .dom('[data-test-rr="band-list-item"]:last-child')
+      .hasText('Caspian', 'The new bank link is rendered as the last item');
+    assert
+      .dom('[data-test-rr="songs-nav-item"] > .active')
+      .exists('The Songs tab is active');
   });
 });
