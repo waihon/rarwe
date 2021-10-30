@@ -4,11 +4,16 @@
   {{#each this.stars as |star|}}
     {{!-- The event handler set up by `on` will be called with fn arguments first, --}}
     {{!-- which can be an arbitrary number, and the DOM event as the last parameter. --}}
-    <button type="button" {{on "click" (fn @onUpdate star.rating)}}>
+    <button
+      type="button"
+      data-test-rr="star-rating-button"
+      {{on "click" (fn @onUpdate star.rating)}}
+    >
       <FaIcon
         @icon="star"
         {{!-- fas (solid style), far (regular style) --}}
         @prefix={{if star.full "fas" "far"}}
+        data-test-rr={{if star.full "full-star" "empty-star"}}
       />
     </button>
   {{/each}}
