@@ -1,7 +1,12 @@
 <ul class="pl-2 pr-8">
   {{!-- this.bands is a property defined in the corresponding component class --}}
   {{#each this.bands as |item|}}
-    <li class="mb-2">
+    {{!-- The ember-test-selectors addon establishes attribute bindings for data attributes --}}
+    {{!-- that start with data-test- (note the final hyphen), just writing data-test is not --}}
+    {{!-- enough that's why we use the rr suffix (for rock & roll) in all attribute name. --}}
+    {{!-- Besides, the addon also strips these attributes in production where they'd only add --}}
+    {{!-- clutter to the DOM elements. --}}
+    <li class="mb-2" data-test-rr="band-list-item">
       <LinkTo
         class={{if item.isActive "border-purple-400 border-l-4 pl-2"}}
         {{!-- The band links previously point to the bands.band.songs route. --}}
@@ -9,6 +14,7 @@
         {{!-- redirect hub, so we need to modify those links to point to bands.band. --}}
         @route="bands.band"
         @model={{item.band.id}}
+        data-test-rr="band-link"
       >
         {{item.band.name}}
       </LinkTo>
