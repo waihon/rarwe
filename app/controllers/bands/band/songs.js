@@ -9,6 +9,24 @@ export default class BandsBandSongsController extends Controller {
 
   @service catalog;
 
+  get sortedSongs() {
+    // The sort function in JavaScript takes a "compare" function.
+    // If the first item is smaller, it needs to return a negative value.
+    // If the second, a positive value. If they are equal, zoro.
+    // Also, sort mutates the array it's called on, so to be safe, we make
+    // a copy by using [...originalArray]. Besides, it also returns the
+    // sorted array.
+    return [...this.model.songs].sort((song1, song2) => {
+      if (song1.title < song2.title) {
+        return -1;
+      }
+      if (song1.title > song2.title) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
   @action
   updateTitle(event) {
     this.title = event.target.value;
