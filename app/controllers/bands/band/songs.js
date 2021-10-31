@@ -6,10 +6,18 @@ import { inject as service } from '@ember/service';
 export default class BandsBandSongsController extends Controller {
   @tracked showAddSong = true;
   @tracked title = '';
+  @tracked sortBy = 'title';
 
   @service catalog;
 
   get sortedSongs() {
+    let sortBy = this.sortBy;
+    let isDescendingSort = false;
+    if (sortBy.charAt(0) === '-') {
+      // Exclude '-' by extracting from position 1 (2nd position), and to the end.
+      sortBy = this.sortBy.slice(1);
+      isDescendingSort = true;
+    }
     // The sort function in JavaScript takes a "compare" function.
     // If the first item is smaller, it needs to return a negative value.
     // If the second, a positive value. If they are equal, zoro.
@@ -17,11 +25,11 @@ export default class BandsBandSongsController extends Controller {
     // a copy by using [...originalArray]. Besides, it also returns the
     // sorted array.
     return [...this.model.songs].sort((song1, song2) => {
-      if (song1.title < song2.title) {
-        return -1;
+      if (song1[sortBy] < song2[sortBy]) {
+        return isDescendingSort ? 1 : -1;
       }
-      if (song1.title > song2.title) {
-        return 1;
+      if (song1[sortBy] > song2[sortBy]) {
+        return isDescendingSort? -1 : 1;
       }
       return 0;
     });
