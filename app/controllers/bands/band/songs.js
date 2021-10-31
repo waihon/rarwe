@@ -7,8 +7,16 @@ export default class BandsBandSongsController extends Controller {
   @tracked showAddSong = true;
   @tracked title = '';
   @tracked sortBy = 'title';
+  @tracked searchTerm = '';
 
   @service catalog;
+
+  get matchingSongs() {
+    let searchTerm = this.searchTerm.toLowerCase();
+    return this.model.songs.filter((song) => {
+      return song.title.toLowerCase().includes(searchTerm);
+    });
+  }
 
   get sortedSongs() {
     let sortBy = this.sortBy;
@@ -18,13 +26,17 @@ export default class BandsBandSongsController extends Controller {
       sortBy = this.sortBy.slice(1);
       isDescendingSort = true;
     }
+    // We have to make sure that sorting happens on the filtered songs. It would be
+    // wasteful (on larger lists) to first sort all the items, only to hve most
+    // of them filtered out by the search expression.
+    //
     // The sort function in JavaScript takes a "compare" function.
     // If the first item is smaller, it needs to return a negative value.
     // If the second, a positive value. If they are equal, zoro.
     // Also, sort mutates the array it's called on, so to be safe, we make
-    // a copy by using [...originalArray]. Besides, it also returns the
-    // sorted array.
-    return [...this.model.songs].sort((song1, song2) => {
+    // a copy by using [...this.model.songs] for example.
+    // Besides, it also returns the sorted array.
+    return this.matchingSongs.sort((song1, song2) => {
       if (song1[sortBy] < song2[sortBy]) {
         return isDescendingSort ? 1 : -1;
       }
@@ -38,6 +50,11 @@ export default class BandsBandSongsController extends Controller {
   @action
   updateTitle(event) {
     this.title = event.target.value;
+  }
+
+  @action
+  updateSearchTerm(event) {
+    this.searchTerm = event.target.value;
   }
 
   @action
