@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, click } from '@ember/test-helpers';
+import { visit, currentURL, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 
@@ -46,6 +46,9 @@ module('Acceptance | songs', function (hooks) {
         'Spinning in Daffodils',
         'The last song is the one that come last in the alphabet'
       );
+    // We don't test the s=title case. When the value of the query param (QP) is its
+    // default value (as seen on the controller where we set sortBy), Ember doesn't
+    // add the QP to the URL.
 
     await click('[data-test-rr=sort-by-title-desc]');
     assert
@@ -54,6 +57,10 @@ module('Acceptance | songs', function (hooks) {
         'Spinning in Daffodils',
         'The first song is the one that comes last in the alphabet'
       );
+    assert.ok(
+      currentURL().includes('s=-title'),
+      'The sort query param appears in the URL with the correct value'
+    );
 
     await click('[data-test-rr=sort-by-rating-asc]');
     assert
@@ -68,6 +75,10 @@ module('Acceptance | songs', function (hooks) {
         'Spinning in Daffodils',
         'The last song is the highest rated'
       );
+    assert.ok(
+      currentURL().includes('s=rating'),
+      'The sort query param appears in the URL with the correct value'
+    );
 
     await click('[data-test-rr=sort-by-rating-desc]');
     assert
@@ -82,5 +93,9 @@ module('Acceptance | songs', function (hooks) {
         'Mind Eraser, No Chaser',
         'The last song is the lowest rated'
       );
+    assert.ok(
+      currentURL().includes('s=-rating'),
+      'The sort query param appears in the URL with the correct value'
+    )
   });
 });
