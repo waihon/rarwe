@@ -3,15 +3,25 @@
 {{#if this.sortedSongs.length}}
   <div class="mb-8">
     <span class="relative z-0 inline-flex shadow-sm">
-      <button
-        type="button"
+      {{!-- We can improve the user experience by making the buttons be --}}
+      {{!-- links to the route with the appropriate sorting option. Since the --}}
+      {{!-- sorting option is now embedded in the URL, changing the sorting --}}
+      {{!-- option is the same thing as transitioning to the same route with the --}}
+      {{!-- sort query parameter changed. --}}
+      {{!-- Having the sorting implemented through links has the advantage that --}}
+      {{!-- no actions need to be defined and that when one hovers over the --}}
+      {{!-- buttons, the URL is displayed just as with "ordinary" links. --}}
+      <LinkTo
         class="rounded-l-md inline-flex items-center px-4 py-2 border
                border-gray-500 bg-purple-600 leading-5 font-medium
                text-gray-100 hover:text-white hover:bg-purple-500"
         data-test-rr="sort-by-title-asc"
-        {{!-- The set helper makes ure to set the sortBy propeorty on the --}}
-        {{!-- controller to the desired value. --}}
-        {{on "click" (set this "sortBy" "title")}}
+        {{!-- The <LinkTo> component can take a @query parameter that contains --}}
+        {{!-- a hash object that the query parameter values should be set to. --}}
+        {{!-- Also note that we omitted the route name argument. That is becasue --}}
+        {{!-- it is not necessary to pass the route name if the destination route --}}
+        {{!-- is the current one. --}}
+        @query={{hash s="title"}}
       >
         Title
         <FaIcon
@@ -19,15 +29,14 @@
           @icon="angle-up"
           @prefix="fas"
         />
-      </button>
-      <button
-        type="button"
+      </LinkTo>
+      <LinkTo
         class="-ml-px inline-flex items-center px-4 py-2 border
                border-gray-500 bg-purple-600 leading-5 font-medium
                text-gray-100 hover:text-white hover:bg-purple-500"
         data-test-rr="sort-by-title-desc"
         {{!-- A leading dash (-) is used to indicate descending sorting --}}
-        {{on "click" (set this "sortBy" "-title")}}
+        @query={{hash s="-title"}}
       >
         Title
         <FaIcon
@@ -35,14 +44,13 @@
           @icon="angle-down"
           @prefix="fas"
         />
-      </button>
-      <button
-        type="button"
+      </LinkTo>
+      <LinkTo
         class="-ml-px inline-flex items-center px-4 py-2 border
                border-gray-500 bg-purple-600 leading-5 font-medium
                text-gray-100 hover:text-white hover:bg-purple-500"
         data-test-rr="sort-by-rating-asc"
-        {{on "click" (set this "sortBy" "rating")}}
+        @query={{hash s="rating"}}
       >
         Rating
         <FaIcon
@@ -50,15 +58,14 @@
           @icon="angle-up"
           @prefix="fas"
         />
-      </button>
-      <button
-        type="button"
+      </LinkTo>
+      <LinkTo
         class="rounded-r-md -ml-px inline-flex items-center px-4 py-2 border
                border-gray-500 bg-purple-600 leading-5 font-medium
                text-gray-100 hover:bg-purple-500 hover:text-white"
         data-test-rr="sort-by-rating-desc"
         {{!-- A leading dash (-) is used to indicate descending sorting --}}
-        {{on "click" (set this "sortBy" "-rating")}}
+        @query={{hash s="-rating"}}
       >
         Rating
         <FaIcon
@@ -66,7 +73,7 @@
           @icon="angle-down"
           @prefix="fas"
         />
-      </button>
+      </LinkTo>
     </span>
   </div>
   <ul>
