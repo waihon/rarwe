@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import wait from 'rarwe/utils/wait';
 
 export default class BandsBandSongsRoute extends Route {
   @service catalog;
@@ -17,8 +16,6 @@ export default class BandsBandSongsRoute extends Route {
 
   async model() {
     let band = this.modelFor('bands.band');
-    // Simulate network latency
-    await wait(500);
     await this.catalog.fetchRelated(band, 'songs');
     return band;
   }
