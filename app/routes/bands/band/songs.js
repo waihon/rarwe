@@ -17,9 +17,7 @@ export default class BandsBandSongsRoute extends Route {
   async model() {
     let band = this.modelFor('bands.band');
     await this.catalog.fetchRelated(band, 'songs');
-    // Test displaying of the error template by making a rejecting promise
-    // in the model hook for a specific band name.
-    return (band.name !== 'Radiohead' ? band : Promise.reject());
+    return band;
   }
 
   // Each controller class only has one single instance in the application.
