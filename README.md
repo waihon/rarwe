@@ -128,3 +128,7 @@ Specify what it takes to deploy your app.
 * `ember install ember-test-selectors`
 * `ember g component-test star-rating`
 * `ember g service-test catalog`
+
+### 12. Query Params
+
+* `ember g acceptance-test songs`
