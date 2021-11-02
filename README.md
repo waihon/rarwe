@@ -132,3 +132,9 @@ Specify what it takes to deploy your app.
 ### 12. Query Params
 
 * `ember g acceptance-test songs`
+
+### 13. Loading and Error Substates
+
+* `ember g template loading`
+* `ember g template bands/band/loading`
+* `ember g template bands/band/error`
