@@ -11,8 +11,8 @@ export default class BandsBandSongsRoute extends Route {
     searchTerm: {
       // Search term is almost universally denoted by q
       as: 'q',
-    }
-  }
+    },
+  };
 
   async model() {
     let band = this.modelFor('bands.band');

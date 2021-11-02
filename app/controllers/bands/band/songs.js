@@ -41,7 +41,7 @@ export default class BandsBandSongsController extends Controller {
         return isDescendingSort ? 1 : -1;
       }
       if (song1[sortBy] > song2[sortBy]) {
-        return isDescendingSort? -1 : 1;
+        return isDescendingSort ? -1 : 1;
       }
       return 0;
     });
