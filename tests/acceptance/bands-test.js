@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, click, fillIn, waitFor } from '@ember/test-helpers';
+import { visit, waitFor } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { getPageTitle } from 'ember-page-title/test-support';
