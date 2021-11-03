@@ -100,7 +100,7 @@
   <ul>
     {{#each this.sortedSongs as |song|}}
       <li class="mb-2" data-test-rr="song-list-item">
-        {{song.title}}
+        {{capitalize song.title}}
         <span class="float-right">
           <StarRating
             {{!-- Below uni-directional flow has been dubbed "Data Down Actions Up" (or DDAU, --}}
