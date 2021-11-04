@@ -4,10 +4,10 @@ import { helper } from '@ember/component/helper';
 // new capitalize function.
 import { capitalize as emberCapitalize } from '@ember/string';
 
-// The imported helper function takes an ordinary function and wraps it so that
-// the helper function establishes a binding. If the property passed to the
-// helper changes, the helper rerenders its output.
-export default helper(function capitalize(input) {
+// Move the capitalize function outside of the helper call and create a name
+// export for it. This gives us the possibility to use that named export
+// anywhere in our code.
+export function capitalize(input) {
   // Positional arguments of a helper are passed in as an array (helpers can also
   // take multiple positional arguments). We only take one string, so we take the
   // first value in the array, i.e. input[0].
@@ -22,4 +22,9 @@ export default helper(function capitalize(input) {
     return emberCapitalize(word.charAt(0)) + word.slice(1);
   });
   return words.join(' ');
-});
+}
+
+// The imported helper function takes an ordinary function and wraps it so that
+// the helper function establishes a binding. If the property passed to the
+// helper changes, the helper rerenders its output.
+export default helper(capitalize);
