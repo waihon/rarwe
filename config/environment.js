@@ -44,7 +44,12 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    // In development, network requests are fired to the same host (in other words,
+    // no host is specified) and we use a proxy, provided by EMBER CLI, to tunnel
+    // those requests to the API.
+    // When we deploy the app to production, no such proxy will be available and
+    // we thus need to define the right host.
+    ENV.apiHost = 'https://json-api.rockandrollwithemberjs.com';
   }
 
   return ENV;
