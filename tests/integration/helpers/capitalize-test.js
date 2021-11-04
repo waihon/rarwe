@@ -6,12 +6,14 @@ import { hbs } from 'ember-cli-htmlbars';
 module('Integration | Helper | capitalize', function (hooks) {
   setupRenderingTest(hooks);
 
-  // TODO: Replace this with your real tests.
-  test('it renders', async function (assert) {
-    this.set('inputValue', '1234');
+  test('it capitalizes each word', async function (assert) {
+    this.set('title', 'seven nations army');
+    await render(hbs`{{capitalize this.title}}`);
+    // this.elements refers to the top-level #ember-testing element - a sort
+    // of sandbox that helpers are tested in.
+    assert.dom(this.element).hasText('Seven Nations Army');
 
-    await render(hbs`{{capitalize this.inputValue}}`);
-
-    assert.dom(this.element).hasText('1234');
+    this.set('title', 'MVC');
+    assert.dom(this.element).hasText('MVC');
   });
 });
