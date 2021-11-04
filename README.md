@@ -142,3 +142,9 @@ Specify what it takes to deploy your app.
 ### 14. Helpers
 
 * `ember g helper capitalize`
+
+### 15. Deployment
+
+* `ember install ember-cli-surge`
+* `npm install -g surge`
+* `ember surge --environment production`
