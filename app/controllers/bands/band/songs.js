@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { capitalize } from 'rarwe/helpers/capitalize';
 
 export default class BandsBandSongsController extends Controller {
   @tracked showAddSong = true;
@@ -45,6 +46,16 @@ export default class BandsBandSongsController extends Controller {
       }
       return 0;
     });
+  }
+
+  get newSongPlaceholder() {
+    let bandName = this.model.name;
+    // When a helper is called from the template, through the helper function
+    // (imported from @ember/component/helper), the positional arguments are
+    // always passed in as an array: that's why we take the first element via
+    // input[0]. That means that when we import the simple function to other
+    // JavaScript code, we have to wrap the argumetns in an array.
+    return `New ${capitalize([bandName])} song`;
   }
 
   @action

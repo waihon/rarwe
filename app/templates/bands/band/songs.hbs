@@ -148,7 +148,7 @@
       type="text"
       id="title"
       class="text-gray-800 bg-white rounded-md py-2 px-4"
-      placeholder="Song Title"
+      placeholder={{this.newSongPlaceholder}}
       value={{this.title}}
       data-test-r="new-song-title'"
       {{on "input" this.updateTitle}}
