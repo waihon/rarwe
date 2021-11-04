@@ -138,3 +138,7 @@ Specify what it takes to deploy your app.
 * `ember g template loading`
 * `ember g template bands/band/loading`
 * `ember g template bands/band/error`
+
+### 14. Helpers
+
+* `ember g helper capitalize`
