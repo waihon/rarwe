@@ -145,6 +145,12 @@ Specify what it takes to deploy your app.
 
 ### 15. Deployment
 
+#### i. Surge
 * `ember install ember-cli-surge`
 * `npm install -g surge`
 * `ember surge --environment production`
+
+#### ii. Heroku
+* `heroku create --buildpack https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz`
+* `heroku apps:rename --app=guarded-earth-90080 rarweo`
+* `git push heroku main`
