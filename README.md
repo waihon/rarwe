@@ -154,3 +154,12 @@ Specify what it takes to deploy your app.
 * `heroku create --buildpack https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz`
 * `heroku apps:rename --app=guarded-earth-90080 rarweo`
 * `git push heroku main`
+
+#### iii. Amzaon S3
+* `ember install ember-cli-deploy`
+  > ember-cli-deploy needs plugins to actually do the deployment work. See http://ember-cli-deploy.com/docs/v1.0.x/quickstart/ to learn how to install plugins and see what plugins are available.
+* `ember install ember-cli-deploy-build ember-cli-deploy-revision-data ember-cli-deploy-display-revisions ember-cli-deploy-s3 ember-cli-deploy-s3-index`
+* `ember deploy production`
+* `ember deploy:list production`
+* `ember deploy:activate production --revision 2b38a81365690e5d5f951f5fcd0b6137` (refer to Amazon S3's Static website hosting property for the website endpoint)
+* `ember deploy production --activate` (deployment + activation in one go)
