@@ -1,6 +1,8 @@
 import Service from '@ember/service';
 import Band from 'rarwe/models/band';
 import Song from 'rarwe/models/song';
+// `tracked` is an enhanced version of the @tracked decorator, which automatically
+// shallow-wraps the native versions of {}, [], Map, Set, WeakMap, and WeakSet.
 import { tracked } from 'tracked-built-ins';
 // The ember-fetch package (installed by default in all new Ember apps)
 // adds a wrapper around fetch and this is what we import below.
@@ -29,10 +31,15 @@ function extractRelationships(object) {
 }
 
 export default class CatalogService extends Service {
+  // We don't need to track storage itself as we don't change its value.
   storage = {};
 
   constructor() {
     super(...arguments);
+    // Since we mutate the bands and songs arrays (by pushing a new item into them)
+    // which are properties of storage, we have to mark them as tracked, using
+    // tracked-built-ins addon, which provides tracking for {}, [], Map, Set,
+    // WeamMap, and WeakSet.
     this.storage.bands = tracked([]);
     this.storage.songs = tracked([]);
   }

@@ -33,11 +33,16 @@ export default class BandsBandSongsController extends Controller {
     //
     // The sort function in JavaScript takes a "compare" function.
     // If the first item is smaller, it needs to return a negative value.
-    // If the second, a positive value. If they are equal, zoro.
+    // If the second item is smaller, a positive value.
+    // If they are equal, zero.
+    // The above is applicable to sorting in ascending order.
+    // For sorting in descending order, the sign is reversed.
     // Also, sort mutates the array it's called on, so to be safe, we make
     // a copy by using [...this.model.songs] for example.
     // Besides, it also returns the sorted array.
     return this.matchingSongs.sort((song1, song2) => {
+      // song1[sortBy] is an alternative way of accessing song1.title or
+      // song1.rating given that sortBy equals 'title' or 'rating'.
       if (song1[sortBy] < song2[sortBy]) {
         return isDescendingSort ? 1 : -1;
       }
@@ -83,7 +88,7 @@ export default class BandsBandSongsController extends Controller {
       { title: this.title },
       // The designation of a related record by specifying its id and type
       // is called "resource linkage" in the JSON:API vocabulary.
-      // this.model refers to the parent route's model by default, i.e. band
+      // this.model refers a band as per the route hander for songs.
       { band: { data: { id: this.model.id, type: 'bands' } } }
     );
     this.model.songs = [...this.model.songs, song];

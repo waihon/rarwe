@@ -40,7 +40,7 @@ export default class BandsNewController extends Controller {
           if (leave) {
             // The transition.to may invoke router.transitionTo resulting in the same
             // transition.from.
-            // In our case, clicking a bank link initiates a transition from bands.new
+            // In our case, clicking a band link initiates a transition from bands.new
             // to bands.band.index, and then the router.transitionTo there aborts that one
             // and starts one from bands.new to bands.band.details (or bands.band.songs,
             // depending on the band).

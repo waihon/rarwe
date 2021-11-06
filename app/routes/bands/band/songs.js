@@ -5,6 +5,8 @@ export default class BandsBandSongsRoute extends Route {
   @service catalog;
 
   queryParams = {
+    // The keys within queryParams are properties declared and tracked
+    // in the corresponding controller.
     sortBy: {
       as: 's',
     },

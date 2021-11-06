@@ -13,6 +13,9 @@
         {{!-- We want the top-level route for the bands.band route to act as a --}}
         {{!-- redirect hub, so we need to modify those links to point to bands.band. --}}
         @route="bands.band"
+        {{!-- The bands.band route has a dynamic segment. Therefore we have to provide --}}
+        {{!-- a specifc value to @model that resolves the dynamic segment. That would --}}
+        {{!-- be the band's id in this case. --}}
         @model={{item.band.id}}
         data-test-rr="band-link"
       >

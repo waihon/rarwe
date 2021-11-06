@@ -7,6 +7,7 @@
     <button
       type="button"
       data-test-rr="star-rating-button"
+      {{!-- Example from songs.hbs: @onUpdate={{fn this.updateRating song}} --}}
       {{on "click" (fn @onUpdate star.rating)}}
     >
       <FaIcon
