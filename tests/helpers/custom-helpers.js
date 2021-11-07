@@ -7,3 +7,9 @@ export async function createBand(name) {
   await fillIn('[data-test-rr="new-band-name"]', name);
   await click('[data-test-rr="save-band-button"]');
 }
+
+export async function createSong(title) {
+  await click('[data-test-rr="new-song-button"]');
+  await fillIn('[data-test-rr="new-song-title"]', title);
+  await click('[data-test-rr="save-song-button"]');
+}

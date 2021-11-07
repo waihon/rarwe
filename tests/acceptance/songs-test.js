@@ -1,11 +1,42 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, click, fillIn } from '@ember/test-helpers';
+import { visit, currentURL, click, fillIn, waitFor } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import { createSong } from '../helpers/custom-helpers';
 
 module('Acceptance | songs', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
+
+  test('Create a song', async function (assert) {
+    let band = this.server.create('band', { name: 'Them Crooked Vulture' });
+    this.server.create('song', {
+      title: 'Mind Eraser, No Chaser',
+      rating: 2,
+      band,
+    });
+
+    await visit('/');
+    // There was only one band created so only one band link
+    await click('[data-test-rr=band-link]');
+    await waitFor('[data-test-rr="new-song-button"]');
+
+    await createSong('Spinning in Daffodils');
+
+    assert
+      .dom('[data-test-rr="song-list-item"]')
+      .exists({ count: 2}, 'A new song item is rendered');
+    assert.ok(
+      currentURL().includes('s=title'),
+      'The sort query param appears in the URL with the default value'
+    );
+    assert
+      .dom('[data-test-rr="song-list-item"]:last-child')
+      .hasText(
+        'Spinning In Daffodils',
+        'The new song item is rendered as the last item'
+      );
+  });
 
   test('Sort songs in various ways', async function (assert) {
     let band = this.server.create('band', { name: 'Them Crooked Vulture' });

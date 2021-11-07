@@ -132,6 +132,7 @@
     <button
       type="button"
       class="px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white hover:bg-purple-500 focus:outline-none"
+      data-test-rr="new-song-button"
       {{on "click" (set this "showAddSong" false)}}
     >
       Add song
@@ -150,7 +151,7 @@
       class="text-gray-800 bg-white rounded-md py-2 px-4"
       placeholder={{this.newSongPlaceholder}}
       value={{this.title}}
-      data-test-r="new-song-title'"
+      data-test-rr="new-song-title"
       {{on "input" this.updateTitle}}
     />
     <button
