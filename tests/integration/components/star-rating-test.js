@@ -41,7 +41,7 @@ module('Integration | Component | star-rating', function (hooks) {
 
   test('Calls onUpdate with the correct value', async function (assert) {
     this.set('rating', 2);
-    // We don't have to use the action d ecorator to bind the context of our event handler.
+    // We don't have to use the action decorator to bind the context of our event handler.
     // As opposed to the "real" app, we run everything in the same context (the context of
     // the test), so there's no need to.
     this.set('updateRating', (rating) => {
@@ -58,7 +58,8 @@ module('Integration | Component | star-rating', function (hooks) {
 
     await click('[data-test-rr="star-rating-button"]:nth-child(4)');
     // Referring to the assert.step above, we can then verify the order and equality of
-    // the arguments by calling assert.verifySteps and passing the expected values.
+    // the arguments by calling assert.verifySteps and passing the expected values
+    // as an array of strings.
     // Here, we only use it for a single value but it's especially useful when wa want to
     // check the order of calls.
     assert.verifySteps(['Updated to rating: 4']);

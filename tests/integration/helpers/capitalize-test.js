@@ -9,7 +9,7 @@ module('Integration | Helper | capitalize', function (hooks) {
   test('it capitalizes each word', async function (assert) {
     this.set('title', 'seven nations army');
     await render(hbs`{{capitalize this.title}}`);
-    // this.elements refers to the top-level #ember-testing element - a sort
+    // this.element refers to the top-level #ember-testing element - a sort
     // of sandbox that helpers are tested in.
     assert.dom(this.element).hasText('Seven Nations Army');
 

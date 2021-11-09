@@ -11,7 +11,7 @@ module('Unit | Service | catalog', function (hooks) {
     // the test container.
     // Its lookup method retrieves the referred entity from the registry.
     // service:catalog, controller:bands/new, and component:star-rating
-    // are valid values, the first part denoting the "type" of the entity
+    // are valid values. The first part denotes the "type" of the entity
     // we want to fetch.
     let catalog = this.owner.lookup('service:catalog');
     catalog.add('band', new Band({ id: 1, name: 'Led Zeppelin' }));
@@ -54,6 +54,8 @@ module('Unit | Service | catalog', function (hooks) {
     });
     let band = catalog.bands[0];
     assert.equal(band.name, 'TOOL');
+    // band.relationships.songs is not to be confused with data.relationships.songs.
+    // The former contains a URL text while the latter contains a links object.
     assert.equal(band.relationships.songs, '/bands/1/songs');
   });
 });

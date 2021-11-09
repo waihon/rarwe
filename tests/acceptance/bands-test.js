@@ -39,7 +39,7 @@ module('Acceptance | bands', function (hooks) {
     await createBand('Caspian');
     // To resolve the intermittent issue of unmatched number of band links, in which
     // by the time the test arrives at checking if there are 2 band links, the new
-    // band link hasn't rendered yet, we'll wait for "The band has no songs yet"
+    // band link hasn't rendered yet. We'll wait for "The band has no songs yet" text
     // to be displayed first as part of rendering the empty songs page for the new band,
     // as an indicator that the new band has appeared in the bands list by that time.
     await waitFor('[data-test-rr="no-songs-text"]');
